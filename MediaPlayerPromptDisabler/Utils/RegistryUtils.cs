@@ -4,7 +4,7 @@ namespace MediaPlayerPromptDisabler
 {
     public class RegistryUtils
     {
-        public static void AddKeyToCurrentUserRegistry(string key, string value, string location)
+        public static void AddKeyToUserRegistry(string key, string value, string location)
         {
             using (RegistryKey rKey = Registry.CurrentUser.CreateSubKey(location))
             {
@@ -12,7 +12,7 @@ namespace MediaPlayerPromptDisabler
             }
         }
 
-        public static void RemoveKeyFromCurrentUserRegistry(string key, string location)
+        public static void RemoveKeyFromUserRegistry(string key, string location)
         {
             using (RegistryKey rKey = Registry.CurrentUser.OpenSubKey(location, true))
             {
