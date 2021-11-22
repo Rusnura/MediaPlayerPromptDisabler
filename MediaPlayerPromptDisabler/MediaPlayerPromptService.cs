@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Runtime.InteropServices;
+using System.Threading;
 
 namespace MediaPlayerPromptDisabler
 {
@@ -50,32 +51,35 @@ namespace MediaPlayerPromptDisabler
                 if (pMediaPlayerFloatingWindow == IntPtr.Zero)
                 {
                     // Waiting...
-                    System.Threading.Thread.Sleep(1000 * attempts);
+                    Thread.Sleep(1000 * attempts);
                     attempts++;
                 }
             }
         }
 
-        public void ShowMediaPlayer()
+        public bool ShowMediaPlayer()
         {
             if (!IsWindow(pMediaPlayerFloatingWindow))
             {
                 FindFloatingMediaPlayerWindow();
             }
 
-            ShowWindow(pMediaPlayerFloatingWindow, 9); // SW_RESTORE
-
-            // Emulate Volume Up && Volume Down 
-            MediaControlHelper.VolumeDown();
-            MediaControlHelper.VolumeUp();
+            if (ShowWindow(pMediaPlayerFloatingWindow, 9)) // SW_RESTORE
+            {
+                // Emulate Volume Up && Volume Down 
+                MediaControlHelper.VolumeDown();
+                MediaControlHelper.VolumeUp();
+                return true;
+            }
+            return false;
         }
-        public void HideMediaPlayer()
+        public bool HideMediaPlayer()
         {
             if (!IsWindow(pMediaPlayerFloatingWindow))
             {
                 FindFloatingMediaPlayerWindow();
             }
-            ShowWindow(pMediaPlayerFloatingWindow, 6); // SW_MINIMIZE
+            return ShowWindow(pMediaPlayerFloatingWindow, 6); // SW_MINIMIZE
         }
 
         private IntPtr FindPairOfNativeAndDirectUIHWNDs()

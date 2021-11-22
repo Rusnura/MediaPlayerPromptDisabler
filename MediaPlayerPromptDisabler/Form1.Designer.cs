@@ -141,7 +141,7 @@ namespace MediaPlayerPromptDisabler
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(882, 479);
+            this.ClientSize = new System.Drawing.Size(329, 235);
             this.Controls.Add(this.gbox_mediaPlayerWindow);
             this.Controls.Add(this.gbox_mediaControl);
             this.MaximizeBox = false;

@@ -39,12 +39,20 @@ namespace MediaPlayerPromptDisabler
 
         private void btn_disableWindowsPlayer_Click(object sender, EventArgs e)
         {
-            mediaPlayerPromptService.HideMediaPlayer();
+            if (mediaPlayerPromptService.HideMediaPlayer())
+            {
+                btn_disableWindowsPlayer.Enabled = false;
+                btn_enableWindowsPlayer.Enabled = true;
+            }
         }
 
         private void btn_enableWindowsPlayer_Click(object sender, EventArgs e)
         {
-            mediaPlayerPromptService.ShowMediaPlayer();
+            if (mediaPlayerPromptService.ShowMediaPlayer())
+            {
+                btn_enableWindowsPlayer.Enabled = false;
+                btn_disableWindowsPlayer.Enabled = true;
+            }
         }
     }
 }
