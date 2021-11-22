@@ -5,11 +5,15 @@ namespace MediaPlayerPromptDisabler
 {
     public partial class MainForm : Form
     {
-        private MediaPlayerPromptService mediaPlayerPromptService = MediaPlayerPromptService.GetInstance();
+        private LoggerService logger = LoggerService.GetInstance();
+        private MediaPlayerPromptService mediaPlayerPromptService;
 
         public MainForm()
         {
             InitializeComponent();
+
+            logger.RegisterListBoxPrinter(lBox_logs);
+            mediaPlayerPromptService = MediaPlayerPromptService.GetInstance();
         }
 
         private void btn_VolumeUp_Click(object sender, EventArgs e)
@@ -39,19 +43,24 @@ namespace MediaPlayerPromptDisabler
 
         private void btn_disableWindowsPlayer_Click(object sender, EventArgs e)
         {
-            if (mediaPlayerPromptService.HideMediaPlayer())
-            {
-                btn_disableWindowsPlayer.Enabled = false;
-                btn_enableWindowsPlayer.Enabled = true;
-            }
+            mediaPlayerPromptService.HideMediaPlayer();
+            btn_disableWindowsPlayer.Enabled = false;
+            btn_enableWindowsPlayer.Enabled = true;
         }
 
         private void btn_enableWindowsPlayer_Click(object sender, EventArgs e)
         {
-            if (mediaPlayerPromptService.ShowMediaPlayer())
+            mediaPlayerPromptService.ShowMediaPlayer();
+            btn_enableWindowsPlayer.Enabled = false;
+            btn_disableWindowsPlayer.Enabled = true;
+        }
+
+        private void chBox_autorun_CheckedChanged(object sender, EventArgs e)
+        {
+            bool autorunState = chBox_autorun.Checked;
+            if (!AutorunHelper.SetApplicationAutorunState(autorunState))
             {
-                btn_enableWindowsPlayer.Enabled = false;
-                btn_disableWindowsPlayer.Enabled = true;
+                chBox_autorun.Checked = !autorunState;
             }
         }
     }
