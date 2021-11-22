@@ -47,9 +47,10 @@
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
     <Compile Include="MediaControlHelper.cs" />
-    <Compile Include="MediaPlayerPromptService.cs" />
+    <Compile Include="Services\MediaPlayerPromptService.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utils\RegistryUtils.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
