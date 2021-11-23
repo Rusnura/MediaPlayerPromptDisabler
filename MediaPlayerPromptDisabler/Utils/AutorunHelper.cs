@@ -30,5 +30,10 @@ namespace MediaPlayerPromptDisabler
                 return false;
             }
         }
+
+        public static bool GetApplicationAutorunState()
+        {
+            return RegistryUtils.CheckKeyExists(APPLICATION_ID, AUTORUN_REGISTRY_PATH);
+        }
     }
 }
