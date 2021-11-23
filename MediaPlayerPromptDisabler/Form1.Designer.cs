@@ -29,6 +29,8 @@ namespace MediaPlayerPromptDisabler
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.btn_VolumeUp = new System.Windows.Forms.Button();
             this.btn_VolumeDown = new System.Windows.Forms.Button();
             this.gbox_mediaControl = new System.Windows.Forms.GroupBox();
@@ -40,8 +42,15 @@ namespace MediaPlayerPromptDisabler
             this.btn_enableWindowsPlayer = new System.Windows.Forms.Button();
             this.chBox_autorun = new System.Windows.Forms.CheckBox();
             this.lBox_logs = new System.Windows.Forms.ListBox();
+            this.trayIcon = new System.Windows.Forms.NotifyIcon(this.components);
+            this.trayMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.shownPlayerMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.doExitMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.showMainFormMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.gbox_mediaControl.SuspendLayout();
             this.gbox_mediaPlayerWindow.SuspendLayout();
+            this.trayMenu.SuspendLayout();
             this.SuspendLayout();
             // 
             // btn_VolumeUp
@@ -160,6 +169,49 @@ namespace MediaPlayerPromptDisabler
             this.lBox_logs.Size = new System.Drawing.Size(394, 132);
             this.lBox_logs.TabIndex = 7;
             // 
+            // trayIcon
+            // 
+            this.trayIcon.ContextMenuStrip = this.trayMenu;
+            this.trayIcon.Icon = ((System.Drawing.Icon)(resources.GetObject("trayIcon.Icon")));
+            this.trayIcon.Visible = true;
+            // 
+            // trayMenu
+            // 
+            this.trayMenu.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.trayMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.showMainFormMenuItem,
+            this.shownPlayerMenuItem,
+            this.toolStripSeparator1,
+            this.doExitMenuItem});
+            this.trayMenu.Name = "trayMenu";
+            this.trayMenu.Size = new System.Drawing.Size(302, 82);
+            // 
+            // shownPlayerMenuItem
+            // 
+            this.shownPlayerMenuItem.Name = "shownPlayerMenuItem";
+            this.shownPlayerMenuItem.Size = new System.Drawing.Size(301, 24);
+            this.shownPlayerMenuItem.Text = "Скрывать окно плеера Windows";
+            this.shownPlayerMenuItem.Click += new System.EventHandler(this.shownPlayerMenuItem_Click);
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(298, 6);
+            // 
+            // doExitMenuItem
+            // 
+            this.doExitMenuItem.Name = "doExitMenuItem";
+            this.doExitMenuItem.Size = new System.Drawing.Size(301, 24);
+            this.doExitMenuItem.Text = "Выход";
+            this.doExitMenuItem.Click += new System.EventHandler(this.doExitMenuItem_Click);
+            // 
+            // showMainFormMenuItem
+            // 
+            this.showMainFormMenuItem.Name = "showMainFormMenuItem";
+            this.showMainFormMenuItem.Size = new System.Drawing.Size(301, 24);
+            this.showMainFormMenuItem.Text = "Показать окно программы";
+            this.showMainFormMenuItem.Click += new System.EventHandler(this.showMainFormMenuItem_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -169,11 +221,16 @@ namespace MediaPlayerPromptDisabler
             this.Controls.Add(this.chBox_autorun);
             this.Controls.Add(this.gbox_mediaPlayerWindow);
             this.Controls.Add(this.gbox_mediaControl);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.Name = "MainForm";
-            this.Text = "Form1";
+            this.Text = "Управление плеером Windows";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
+            this.Load += new System.EventHandler(this.MainForm_Load);
             this.gbox_mediaControl.ResumeLayout(false);
             this.gbox_mediaPlayerWindow.ResumeLayout(false);
+            this.trayMenu.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -192,6 +249,12 @@ namespace MediaPlayerPromptDisabler
         private System.Windows.Forms.Button btn_disableWindowsPlayer;
         private System.Windows.Forms.CheckBox chBox_autorun;
         private System.Windows.Forms.ListBox lBox_logs;
+        private System.Windows.Forms.NotifyIcon trayIcon;
+        private System.Windows.Forms.ContextMenuStrip trayMenu;
+        private System.Windows.Forms.ToolStripMenuItem shownPlayerMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.ToolStripMenuItem doExitMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem showMainFormMenuItem;
     }
 }
 

@@ -41,18 +41,36 @@ namespace MediaPlayerPromptDisabler
             MediaControlHelper.PlayPause();
         }
 
-        private void btn_disableWindowsPlayer_Click(object sender, EventArgs e)
+        private void doHidePlayer()
         {
             mediaPlayerPromptService.HideMediaPlayer();
             btn_disableWindowsPlayer.Enabled = false;
             btn_enableWindowsPlayer.Enabled = true;
+            shownPlayerMenuItem.Checked = true;
+            logger.Log("Плеер скрыт!");
+            Properties.Settings.Default.IsMediaPlayerHidden = true;
+            Properties.Settings.Default.Save();
         }
 
-        private void btn_enableWindowsPlayer_Click(object sender, EventArgs e)
+        private void doShowPlayer()
         {
             mediaPlayerPromptService.ShowMediaPlayer();
             btn_enableWindowsPlayer.Enabled = false;
             btn_disableWindowsPlayer.Enabled = true;
+            shownPlayerMenuItem.Checked = false;
+            logger.Log("Режим отображения плеера включен!");
+            Properties.Settings.Default.IsMediaPlayerHidden = false;
+            Properties.Settings.Default.Save();
+        }
+
+        private void btn_disableWindowsPlayer_Click(object sender, EventArgs e)
+        {
+            doHidePlayer();
+        }
+
+        private void btn_enableWindowsPlayer_Click(object sender, EventArgs e)
+        {
+            doShowPlayer();
         }
 
         private void chBox_autorun_CheckedChanged(object sender, EventArgs e)
@@ -61,6 +79,51 @@ namespace MediaPlayerPromptDisabler
             if (!AutorunHelper.SetApplicationAutorunState(autorunState))
             {
                 chBox_autorun.Checked = !autorunState;
+            }
+        }
+
+        private void MainForm_Load(object sender, EventArgs e)
+        {
+            if (Properties.Settings.Default.IsMediaPlayerHidden)
+            {
+                doHidePlayer();
+            }
+            else
+            {
+                doShowPlayer();
+            }
+            chBox_autorun.Checked = AutorunHelper.GetApplicationAutorunState();
+        }
+
+        private void shownPlayerMenuItem_Click(object sender, EventArgs e)
+        {
+            if (shownPlayerMenuItem.Checked)
+            {
+                doShowPlayer();
+            }
+            else
+            {
+                doHidePlayer();
+            }
+        }
+
+        private void doExitMenuItem_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+
+        private void showMainFormMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Show();
+            this.BringToFront();
+        }
+
+        private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (e.CloseReason == CloseReason.UserClosing)
+            {
+                e.Cancel = true;
+                this.Hide();
             }
         }
     }
