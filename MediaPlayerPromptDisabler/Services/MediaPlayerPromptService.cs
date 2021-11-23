@@ -6,6 +6,7 @@ namespace MediaPlayerPromptDisabler
 {
     public class MediaPlayerPromptService
     {
+        private LoggerService logger = LoggerService.GetInstance();
         private static MediaPlayerPromptService _instance = null;
         private IntPtr pMediaPlayerFloatingWindow = IntPtr.Zero;
 
@@ -57,33 +58,33 @@ namespace MediaPlayerPromptDisabler
             }
         }
 
-        public bool ShowMediaPlayer()
+        public void ShowMediaPlayer()
         {
             if (!IsWindow(pMediaPlayerFloatingWindow))
             {
+                logger.Log("Окно плеера невалидно. Попытка актуализации!");
                 FindFloatingMediaPlayerWindow();
             }
 
-            if (ShowWindow(pMediaPlayerFloatingWindow, 9)) // SW_RESTORE
-            {
-                // Emulate Volume Up && Volume Down 
-                MediaControlHelper.VolumeDown();
-                MediaControlHelper.VolumeUp();
-                return true;
-            }
-            return false;
+            ShowWindow(pMediaPlayerFloatingWindow, 9); // SW_RESTORE
+            // Emulate Volume Up && Volume Down 
+            MediaControlHelper.VolumeDown();
+            MediaControlHelper.VolumeUp();
         }
-        public bool HideMediaPlayer()
+        public void HideMediaPlayer()
         {
             if (!IsWindow(pMediaPlayerFloatingWindow))
             {
+                logger.Log("Окно плеера невалидно. Попытка актуализации!");
                 FindFloatingMediaPlayerWindow();
             }
-            return ShowWindow(pMediaPlayerFloatingWindow, 6); // SW_MINIMIZE
+
+            ShowWindow(pMediaPlayerFloatingWindow, 6); // SW_MINIMIZE
         }
 
         private IntPtr FindPairOfNativeAndDirectUIHWNDs()
         {
+            logger.Log("Пытаюсь найти окно плеера...");
             IntPtr pWindowsHostWindow = IntPtr.Zero;
             IntPtr pMediaPlayerFloatingWindow = IntPtr.Zero;
 
@@ -99,6 +100,7 @@ namespace MediaPlayerPromptDisabler
                     }
                     else
                     {
+                        logger.Log("Не удалось: много совпадений!");
                         // Too many "NativeHWNDHost" + "DirectUIHWND" results found: It's bad...
                         return IntPtr.Zero;
                     }
@@ -107,9 +109,10 @@ namespace MediaPlayerPromptDisabler
 
             if (pMediaPlayerFloatingWindow == IntPtr.Zero)
             {
-                // TODO: Log: Media Player Control Windows not found
+                logger.Log("Окно плеера не найдено :(");
             }
 
+            logger.Log("Окно успешно найдено!");
             return pMediaPlayerFloatingWindow;
         }
     }
