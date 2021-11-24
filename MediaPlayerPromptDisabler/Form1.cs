@@ -90,13 +90,14 @@ namespace MediaPlayerPromptDisabler
             if (Properties.Settings.Default.IsMediaPlayerHidden)
             {
                 doHidePlayer();
+                hideFormTimer.Enabled = true;
             }
             else
             {
                 doShowPlayer();
+                BringFormToFront();
             }
             chBox_autorun.Checked = AutorunHelper.GetApplicationAutorunState();
-            hideFormTimer.Enabled = true;
         }
 
         private void shownPlayerMenuItem_Click(object sender, EventArgs e)
