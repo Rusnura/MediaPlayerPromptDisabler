@@ -33,5 +33,10 @@ namespace MediaPlayerPromptDisabler
         {
             this.printer = printer;
         }
+
+        public void Clear()
+        {
+            this.printer.Items.Clear();
+        }
     }
 }

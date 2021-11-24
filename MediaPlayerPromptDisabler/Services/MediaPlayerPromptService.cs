@@ -51,9 +51,8 @@ namespace MediaPlayerPromptDisabler
 
                 if (pMediaPlayerFloatingWindow == IntPtr.Zero)
                 {
-                    // Waiting...
-                    Thread.Sleep(1000 * attempts);
                     attempts++;
+                    Thread.Sleep(1000 * attempts);
                 }
             }
         }
@@ -110,10 +109,11 @@ namespace MediaPlayerPromptDisabler
             if (pMediaPlayerFloatingWindow == IntPtr.Zero)
             {
                 logger.Log("Окно плеера не найдено :(");
-                return IntPtr.Zero;
             }
-
-            logger.Log("Окно успешно найдено!");
+            else
+            {
+                logger.Log("Окно успешно найдено!");
+            }
             return pMediaPlayerFloatingWindow;
         }
     }
