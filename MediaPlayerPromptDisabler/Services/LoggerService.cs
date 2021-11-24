@@ -25,7 +25,8 @@ namespace MediaPlayerPromptDisabler
                 return;
 
             string currentTime = DateTime.Now.ToString("HH:mm:ss");
-            printer.Items.Insert(0, "[" + currentTime + "] " + message);
+            printer.Items.Add("[" + currentTime + "] " + message);
+            printer.TopIndex = printer.Items.Count - 1;
         }
 
         public void RegisterListBoxPrinter(ListBox printer)

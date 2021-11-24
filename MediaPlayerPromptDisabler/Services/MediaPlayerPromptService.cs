@@ -110,6 +110,7 @@ namespace MediaPlayerPromptDisabler
             if (pMediaPlayerFloatingWindow == IntPtr.Zero)
             {
                 logger.Log("Окно плеера не найдено :(");
+                return IntPtr.Zero;
             }
 
             logger.Log("Окно успешно найдено!");

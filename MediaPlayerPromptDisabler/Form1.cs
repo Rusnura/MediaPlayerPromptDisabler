@@ -78,7 +78,10 @@ namespace MediaPlayerPromptDisabler
             bool autorunState = chBox_autorun.Checked;
             if (!AutorunHelper.SetApplicationAutorunState(autorunState))
             {
+                logger.Log("Не удалось изменить параметр автозапуска!");
+                logger.Log("Проверьте доступ к реестру!");
                 chBox_autorun.Checked = !autorunState;
+                return;
             }
         }
 
@@ -125,6 +128,22 @@ namespace MediaPlayerPromptDisabler
                 e.Cancel = true;
                 this.Hide();
             }
+        }
+
+        private void trayIcon_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (e.Button != MouseButtons.Left)
+                return; 
+            if (this.Visible)
+            {
+                this.Hide();
+            }
+            else
+            {
+                this.Show();
+                this.BringToFront();
+            }
+
         }
     }
 }

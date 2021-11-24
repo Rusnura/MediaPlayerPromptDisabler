@@ -44,10 +44,10 @@ namespace MediaPlayerPromptDisabler
             this.lBox_logs = new System.Windows.Forms.ListBox();
             this.trayIcon = new System.Windows.Forms.NotifyIcon(this.components);
             this.trayMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.showMainFormMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.shownPlayerMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.doExitMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.showMainFormMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.gbox_mediaControl.SuspendLayout();
             this.gbox_mediaPlayerWindow.SuspendLayout();
             this.trayMenu.SuspendLayout();
@@ -174,6 +174,7 @@ namespace MediaPlayerPromptDisabler
             this.trayIcon.ContextMenuStrip = this.trayMenu;
             this.trayIcon.Icon = ((System.Drawing.Icon)(resources.GetObject("trayIcon.Icon")));
             this.trayIcon.Visible = true;
+            this.trayIcon.MouseClick += new System.Windows.Forms.MouseEventHandler(this.trayIcon_MouseClick);
             // 
             // trayMenu
             // 
@@ -185,6 +186,13 @@ namespace MediaPlayerPromptDisabler
             this.doExitMenuItem});
             this.trayMenu.Name = "trayMenu";
             this.trayMenu.Size = new System.Drawing.Size(302, 82);
+            // 
+            // showMainFormMenuItem
+            // 
+            this.showMainFormMenuItem.Name = "showMainFormMenuItem";
+            this.showMainFormMenuItem.Size = new System.Drawing.Size(301, 24);
+            this.showMainFormMenuItem.Text = "Показать окно программы";
+            this.showMainFormMenuItem.Click += new System.EventHandler(this.showMainFormMenuItem_Click);
             // 
             // shownPlayerMenuItem
             // 
@@ -204,13 +212,6 @@ namespace MediaPlayerPromptDisabler
             this.doExitMenuItem.Size = new System.Drawing.Size(301, 24);
             this.doExitMenuItem.Text = "Выход";
             this.doExitMenuItem.Click += new System.EventHandler(this.doExitMenuItem_Click);
-            // 
-            // showMainFormMenuItem
-            // 
-            this.showMainFormMenuItem.Name = "showMainFormMenuItem";
-            this.showMainFormMenuItem.Size = new System.Drawing.Size(301, 24);
-            this.showMainFormMenuItem.Text = "Показать окно программы";
-            this.showMainFormMenuItem.Click += new System.EventHandler(this.showMainFormMenuItem_Click);
             // 
             // MainForm
             // 
