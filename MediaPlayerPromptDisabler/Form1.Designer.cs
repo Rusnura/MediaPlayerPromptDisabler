@@ -257,7 +257,7 @@ namespace MediaPlayerPromptDisabler
             this.versionLabel.Name = "versionLabel";
             this.versionLabel.Size = new System.Drawing.Size(52, 17);
             this.versionLabel.TabIndex = 11;
-            this.versionLabel.Text = "ver 1.0";
+            this.versionLabel.Text = "ver 1.1";
             // 
             // MainForm
             // 

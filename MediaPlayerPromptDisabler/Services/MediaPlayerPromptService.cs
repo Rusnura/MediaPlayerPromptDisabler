@@ -39,6 +39,10 @@ namespace MediaPlayerPromptDisabler
 
         public void FindFloatingMediaPlayerWindow()
         {
+            if (pMediaPlayerFloatingWindow != IntPtr.Zero && IsWindow(pMediaPlayerFloatingWindow))
+                return;
+
+            pMediaPlayerFloatingWindow = IntPtr.Zero;
             int attempts = 0;
             while (pMediaPlayerFloatingWindow == IntPtr.Zero && attempts < 10)
             {
